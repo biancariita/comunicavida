@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    background: #111;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+video{
+    position: fixed;
+    opacity: 0;
+}
+
+.buttons {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+button {
+    width: 90%;
+    height: 80px;
+    margin: 10px auto;
+    font-size: 24px;
+    border-radius: 20px;
+    border:none;
+    background: #2e86de;
+    color: white;
+}
+
+#cursor {
+    width: 30px;
+    height: 30px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    pointer-events: none;
+}
