@@ -48,7 +48,7 @@ faceMesh.onResults(results => {
 
   //centraliza no meio da tela
   let offsetX = 0.5 - nose.x;
-  let offsetY = 0.5 - nose.y;
+  let offsetY = nose.y - 0.5;
 
   //zona morta (ignora micro movimentos)
   let deadZone = 0.02;
