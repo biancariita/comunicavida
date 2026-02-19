@@ -5,8 +5,8 @@ const buttons = document.querySelectorAll("button");
 let cursorX = window.innerWidth / 2;
 let cursorY = window.innerHeight / 2;
 let canClick = true;
-let sensitivity =2.5; //aumenta o movimento
-let smoothFactor = 0.1; //menos tremedeira
+let sensitivity =1.5; //aumenta o movimento
+let smoothFactor = 0.07; //menos tremedeira
 
 navigator.mediaDevices.getUserMedia({ video: true })
   .then(stream => {
