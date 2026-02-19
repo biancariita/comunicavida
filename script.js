@@ -5,7 +5,7 @@ const buttons = document.querySelectorAll("button");
 let cursorX = window.innerWidth / 2;
 let cursorY = window.innerHeight / 2;
 let canClick = true;
-let sensitivity =1; //aumenta o movimento
+let sensitivity =2.5; //aumenta o movimento
 let smoothFactor = 0.1; //menos tremedeira
 
 navigator.mediaDevices.getUserMedia({ video: true })
@@ -47,8 +47,8 @@ faceMesh.onResults(results => {
   const leftEyeBottom = landmarks[145];
 
   //centraliza no meio da tela
-  let offsetX = nose.x - 0.5;
-  let offsetY = nose.y - 0.5;
+  let offsetX = 0.5 - nose.x;
+  let offsetY = 0.5 - nose.y;
 
   //zona morta (ignora micro movimentos)
   let deadZone = 0.02;
@@ -67,17 +67,13 @@ faceMesh.onResults(results => {
   cursorX = Math.max(0, Math.min(window.innerWidth, cursorX));
   cursorY = Math.max(0, Math.min(window.innerHeight, cursorY));
 
-  // Movimento cabeça
-  cursorX = window.innerWidth * nose.x;
-  cursorY = window.innerHeight * nose.y;
-
   cursor.style.left = `${cursorX - 15}px`;
   cursor.style.top = `${cursorY - 15}px`;
 
   // Piscada
   const eyeDistance = Math.abs(leftEyeTop.y - leftEyeBottom.y);
 
-  if (eyeDistance < 0.01 && canClick){
+  if (eyeDistance < 0.015 && canClick){
     canClick = false;
     checkClick();
 
