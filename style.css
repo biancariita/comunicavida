@@ -1,9 +1,10 @@
 html, body {
     margin: 0;
-    background: #a19d9d;
+    background: #dae8f7;
     font-family: Arial, sans-serif;
     overflow-y: auto;
-    height: 100%
+    height: 100%;
+    padding-top: 35px;
 }
 
 video{
@@ -16,7 +17,7 @@ video{
     grid-template-columns: 1fr 1fr; /* 2 colunas*/
     gap:15px;
     padding: 20px;
-    height: 100vh;
+    min-height: calc(100vh - 70px);
     box-sizing: border-box;
 }
 
@@ -42,19 +43,22 @@ button {
 .top-bar {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
-    background: #ffffff;
-    padding: 10px;
+    background: #dae8f7;
+    padding: 10px 20px; /* mais espaço lateral */
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     z-index: 1000;
+    box-sizing: border-box;
 }
 
+
 #calibrateBtn {
-    background: #1e88e5;
-    color: white;
+    background: #124e8a;
+    color: rgb(255, 255, 255);
     border: none;
     padding: 8px 16px;
     border-radius: 8px;
@@ -63,5 +67,7 @@ button {
 
 #statusText {
     font-size: 14px;
-    color: #666;
+    color: #060000;
+    white-space: nowrap; /* impede quebrar */
 }
+

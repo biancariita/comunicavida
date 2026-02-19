@@ -53,12 +53,14 @@ faceMesh.onResults(results => {
   const leftEyeTop = landmarks[159];
   const leftEyeBottom = landmarks[145];
   
-
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   //centraliza no meio da tela
- let offsetX = nose.x - centerX;
- let offsetY = nose.y - centerY;
+    let offsetX = isMobile 
+    ? centerX - nose.x 
+    : nose.x - centerX;
 
+    let offsetY = nose.y - centerY;
 
   //zona morta (ignora micro movimentos)
   let deadZone = 0.02;
