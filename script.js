@@ -7,6 +7,12 @@ let cursorY = window.innerHeight / 2;
 let canClick = true;
 let sensitivity =1.5; //aumenta o movimento
 let smoothFactor = 0.07; //menos tremedeira
+let centerX = 0.5;
+let centerY = 0.5;
+let calibrated = false;
+let lastNosePosition = null;
+
+
 
 navigator.mediaDevices.getUserMedia({ video: true })
   .then(stream => {
@@ -32,7 +38,7 @@ const faceMesh = new FaceMesh({
 
 faceMesh.setOptions({
   maxNumFaces: 1,
-  refineLandmarks: true,
+  refineLandmarks: false,
   minDetectionConfidence: 0.5,
   minTrackingConfidence: 0.5,
 });
@@ -43,12 +49,16 @@ faceMesh.onResults(results => {
   const landmarks = results.multiFaceLandmarks[0];
 
   const nose = landmarks[1];
+  lastNosePosition = nose;
   const leftEyeTop = landmarks[159];
   const leftEyeBottom = landmarks[145];
+  
+
 
   //centraliza no meio da tela
-  let offsetX = 0.5 - nose.x;
-  let offsetY = nose.y - 0.5;
+ let offsetX = nose.x - centerX;
+ let offsetY = nose.y - centerY;
+
 
   //zona morta (ignora micro movimentos)
   let deadZone = 0.02;
@@ -106,3 +116,21 @@ const camera = new Camera(video, {
 });
 
 camera.start();
+
+function calibrate() {
+  if (lastNosePosition) {
+    centerX = lastNosePosition.x;
+    centerY = lastNosePosition.y;
+    calibrated = true;
+    alert("Calibrado!");
+  }
+}
+
+document.getElementById("calibrateBtn").addEventListener("click", () => {
+  if (lastNosePosition) {
+    centerX = lastNosePosition.x;
+    centerY = lastNosePosition.y;
+
+    document.getElementById("statusText").innerText = "Calibrado ✓";
+  }
+});

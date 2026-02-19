@@ -10,6 +10,11 @@
     <video id="video" autoplay playsinline></video>
     <div id="cursor"></div>
 
+    <div class="top-bar">
+      <button id="calibrateBtn">Calibrar</button>
+      <span id="statusText">Não calibrado</span>
+    </div>
+
     <div class="buttons">
         <button data-text="eu estou com dor">EU ESTOU COM DOR</button>
          <button data-text="cabeça">CABEÇA</button>
@@ -26,14 +31,10 @@
         <button data-text="chamar alguem">CHAMA ALGUEM</button>
         <button data-text="pé">PÉ</button>
         <button data-text="Quero travesseiro">QUERO TRAVESSEIRO</button>
-        
-        
-        
         <button data-text="bumbum">BUMBUM</button>
-        
-        
-       
     </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
