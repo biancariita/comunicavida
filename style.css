@@ -1,8 +1,9 @@
-body {
+html, body {
     margin: 0;
-    background: #111;
+    background: #a19d9d;
     font-family: Arial, sans-serif;
-    overflow: hidden;
+    overflow-y: auto;
+    height: 100%
 }
 
 video{
@@ -11,27 +12,27 @@ video{
 }
 
 .buttons {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 colunas*/
+    gap:15px;
+    padding: 20px;
+    height: 100vh;
+    box-sizing: border-box;
 }
 
 button {
-    width: 90%;
-    height: 80px;
-    margin: 10px auto;
-    font-size: 24px;
-    border-radius: 20px;
-    border:none;
-    background: #2e86de;
+    height: 60px;
+    font-size: 18px;
+    border-radius: 15px;
+    border: none;
+    background: #124e8a;
     color: white;
 }
 
 #cursor {
     width: 30px;
     height: 30px;
-    background: red;
+    background: rgb(9, 209, 192);
     border-radius: 50%;
     position: absolute;
     pointer-events: none;

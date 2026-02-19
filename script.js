@@ -4,6 +4,9 @@ const buttons = document.querySelectorAll("button");
 
 let cursorX = window.innerWidth / 2;
 let cursorY = window.innerHeight / 2;
+let canClick = true;
+let sensitivity =1; //aumenta o movimento
+let smoothFactor = 0.1; //menos tremedeira
 
 navigator.mediaDevices.getUserMedia({ video: true })
   .then(stream => {
@@ -24,7 +27,7 @@ buttons.forEach(button => {
 
 const faceMesh = new FaceMesh({
   locateFile: (file) =>
-    `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}./`,
+    `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`,
 });
 
 faceMesh.setOptions({
@@ -43,18 +46,44 @@ faceMesh.onResults(results => {
   const leftEyeTop = landmarks[159];
   const leftEyeBottom = landmarks[145];
 
+  //centraliza no meio da tela
+  let offsetX = nose.x - 0.5;
+  let offsetY = nose.y - 0.5;
+
+  //zona morta (ignora micro movimentos)
+  let deadZone = 0.02;
+
+  if (Math.abs(offsetX) < deadZone) offsetX = 0;
+  if (Math.abs(offsetY) < deadZone) offsetY = 0;
+
+  let targetX = cursorX + offsetX * window.innerWidth * sensitivity;
+  let targetY = cursorY + offsetY * window.innerHeight * sensitivity; 
+  
+  //suavização
+  cursorX += (targetX - cursorX) * smoothFactor;
+  cursorY += (targetY - cursorY) * smoothFactor;
+
+  //limites da tela
+  cursorX = Math.max(0, Math.min(window.innerWidth, cursorX));
+  cursorY = Math.max(0, Math.min(window.innerHeight, cursorY));
+
   // Movimento cabeça
   cursorX = window.innerWidth * nose.x;
   cursorY = window.innerHeight * nose.y;
 
-  cursor.style.left = `${cursorX}px`;
-  cursor.style.top = `${cursorY}px`;
+  cursor.style.left = `${cursorX - 15}px`;
+  cursor.style.top = `${cursorY - 15}px`;
 
   // Piscada
   const eyeDistance = Math.abs(leftEyeTop.y - leftEyeBottom.y);
 
-  if (eyeDistance < 0.01) {
+  if (eyeDistance < 0.01 && canClick){
+    canClick = false;
     checkClick();
+
+    setTimeout(() => {
+        canClick =true;
+    }, 5000); // 5 segundo de espera
   }
 });
 
